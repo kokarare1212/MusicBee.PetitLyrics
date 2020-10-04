@@ -37,15 +37,19 @@ namespace MusicBeePlugin
         }
         public void SaveSettings()
         {
+            return;
         }
         public void Close(PluginCloseReason reason)
         {
+            return;
         }
         public void Uninstall()
         {
+            return;
         }
         public void ReceiveNotification(string sourceFileUrl, NotificationType type)
         {
+            return;
         }
         public string[] GetProviders()
         {
@@ -53,12 +57,11 @@ namespace MusicBeePlugin
         }
         public string RetrieveLyrics(string sourceFileUrl, string artist, string trackTitle, string album, bool synchronisedPreferred, string provider)
         {
-            switch (provider)
+            if (provider == Provider)
             {
-                case Provider:
-                    return GetLyricsByMetadata(artist, trackTitle, album);
-                default:
-                    return null;
+                return GetLyricsByMetadata(artist, trackTitle, album);
+            } else {
+                return null;   
             }
         }
         public string RetrieveArtwork(string sourceFileUrl, string albumArtist, string album, string provider)
@@ -78,7 +81,9 @@ namespace MusicBeePlugin
             var musicMetadataX = XDocument.Parse(musicMetadataStr);
             var lyricsElement = musicMetadataX.Element("lyricsData");
             if (lyricsElement == null)
+            {
                 return "";
+            }
             var encodedLyrics = lyricsElement.Value;
             var decodedLyrics = Encoding.UTF8.GetString(Convert.FromBase64String(encodedLyrics));
             return decodedLyrics;
