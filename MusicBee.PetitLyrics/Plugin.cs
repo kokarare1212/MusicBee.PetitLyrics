@@ -23,7 +23,7 @@ namespace MusicBeePlugin
             about.TargetApplication = "";
             about.Type = PluginType.LyricsRetrieval;
             about.VersionMajor = 1;
-            about.VersionMinor = 1;
+            about.VersionMinor = 2;
             about.Revision = 0;
             about.MinInterfaceVersion = 1;
             about.MinApiRevision = 1;
@@ -79,7 +79,7 @@ namespace MusicBeePlugin
             var resp = client.UploadData("http://p1.petitlyrics.com/api/GetPetitLyricsData.php", postData);
             var musicMetadataStr = Encoding.UTF8.GetString(resp);
             var musicMetadataX = XDocument.Parse(musicMetadataStr);
-            var lyricsElement = musicMetadataX.Element("lyricsData");
+            var lyricsElement = musicMetadataX.Element("response").Element("songs").Element("song").Element("lyricsData");
             if (lyricsElement == null)
             {
                 return "";
