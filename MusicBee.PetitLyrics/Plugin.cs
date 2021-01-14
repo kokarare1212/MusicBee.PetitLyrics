@@ -76,7 +76,7 @@ namespace MusicBeePlugin
             var client = new WebClient();
             client.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
             byte[] postData = System.Text.Encoding.UTF8.GetBytes($"clientAppId={petitlyricsClientAppId}&lyricsType=1&terminalType=10&key_artist={artist}&key_title={trackTitle}&key_album={album}");
-            var resp = client.UploadData("http://p1.petitlyrics.com/api/GetPetitLyricsData.php", postData);
+            var resp = client.UploadData("http://p0.petitlyrics.com/api/GetPetitLyricsData.php", postData);
             var musicMetadataStr = Encoding.UTF8.GetString(resp);
             var musicMetadataX = XDocument.Parse(musicMetadataStr);
             var lyricsElement = musicMetadataX.Element("response").Element("songs").Element("song").Element("lyricsData");
